@@ -142,7 +142,16 @@ const EditEntity = () => {
         newAttribute
       );
       console.log(response);
-      toast({ description: "Attribute Created Successfully" });
+
+      const response2 = await axios.get(
+        `/api/v1/entity/${pathname.split("/")[2]}`
+      );
+      console.log(response2.data);
+      setEntityType(response2.data.entityType);
+      setAttributes(response2.data.dynamicAttributes);
+
+      console.log(response2);
+      toast({ description: "Attribute Updated Successfully" });
 
       setAttributeName("");
       setAttributeType("");

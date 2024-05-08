@@ -25,7 +25,7 @@ import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 
-// axios.defaults.baseURL = '';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER;
 
 interface Attribute {
   attributeName: string;
@@ -46,7 +46,7 @@ const EntityTable = () => {
 
   const deleteEntity = (id: string) => async () => {
     try {
-      await axios.delete(`http://localhost:5173/api/v1/entity/${id}`);
+      await axios.delete(`/api/v1/entity/${id}`);
       toast({description: "Entity Deleted Successfully"})
       setEntities((prevEntities) =>
         prevEntities.filter((entity) => entity._id !== id)
@@ -63,7 +63,7 @@ const EntityTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5173/api/v1/entity");
+        const response = await axios.get("/api/v1/entity");
         // console.log("hhhh",response);
         setEntities(response.data);
       } catch (error) {
@@ -79,7 +79,7 @@ const EntityTable = () => {
 
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>A list of your Entities.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">ID</TableHead>
